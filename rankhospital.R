@@ -28,7 +28,7 @@ names(outcome)[23] <- "Pneumonia.Mortality"
 		else	{	
 			OUTCOME1 <- na.omit(subset(outcome[c(2,6,7,11,17,23)]))
 			##OUTCOME1 <- subset(outcome[c(2,6,7,11,17,23)])  use to examine impact of na.omit
-			OUTCOME1 <- OUTCOME1[order(OUTCOME1$State, OUTCOME1$Hospital.Name) , ]
+			OUTCOME1 <- OUTCOME1[order(OUTCOME1$State) , ]
 			OUTCOME <- subset(OUTCOME1, State == stateTarget, select=c(1,2,3,4,5,6))   ##NOW CHOOSE ONLY THE TARGET STATE DATA
 			if ( outcomeTarget == "Heart.Attack"  && num != "worst")  {  OUTCOME <- OUTCOME[order(OUTCOME$Heart.Attack.Mortality) , ]}
 			if ( outcomeTarget == "Heart.Attack"  && num == "worst"){  OUTCOME <- OUTCOME[order(OUTCOME$Heart.Attack.Mortality, decreasing=T) , ]}
@@ -42,4 +42,10 @@ names(outcome)[23] <- "Pneumonia.Mortality"
 OUTCOME[num,1]
 ##head(OUTCOME, 100)   used to examine the actual rows of data being processed.
 }
-##rankhospital("TX", "Heart.Failure", 4)
+##> rankhospital("TX", "Heart.Failure", 4)
+##[1] "EL CAMPO MEMORIAL HOSPITAL"
+##> rankhospital("MD", "Heart.Attack", "worst")
+##[1] "HARFORD MEMORIAL HOSPITAL"
+##> rankhospital("MN", "Heart.Attack", 5000)
+##[1] NA
+##> 
